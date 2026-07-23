@@ -1,78 +1,156 @@
-This is the Official repository of **Java Spring Boot AI Full Stack Microservices Course: Building Fitness Application**
+# AI-Powered Fitness Application
 
-# The Ultimate Java and Spring Boot Mastery Roadmap
+An AI-powered fitness application built using a microservices architecture with Spring Boot. The application helps users manage their fitness journey by providing workout recommendations, tracking progress, and securely managing user data.
 
-Welcome to your one-stop-shop for mastering Java and Spring Boot! This repository offers a comprehensive learning experience with high-quality resources and community support. Dive into over 150+ hours of premium content, with everything you need to excel at Java and Spring Boot development.
+---
 
-## 🎓 Learning Roadmap
+## Features
 
-Most of the courses below are available in **Udemy For Business**, so if you have subscription - you can get FREE access.
-Here’s a structured path to enhance your skills with detailed courses available:
+- User authentication and authorization
+- Personalized workout recommendations
+- Exercise and fitness plan management
+- RESTful APIs for communication between services
+- API Gateway for request routing
+- Service discovery using Eureka Server
+- Secure backend using Spring Boot
+- Responsive frontend built with HTML, CSS, and JavaScript
+- MySQL database integration
 
-1. **[Spring Boot By Building Complex Projects Step by Step](https://link.embarkx.com/spring-boot) (85+ Hours of Content)**
-2. **[Master Spring Boot Microservices by Building eCommerce Project](https://link.embarkx.com/microservices) (55+ Hours of Content)**
-3. **[Learn Java with 60+ Hours of Content](http://link.embarkx.com/java) (60+ Hours of Content)**
-4. **[Master Spring Security with React JS + OAuth2](https://link.embarkx.com/spring-security) (34+ Hours of Content)**
-5. **[Master IntelliJ IDEA](http://link.embarkx.com/intellij) (3+ Hours of Content)**
+---
 
+## Tech Stack
 
-## 🌟 With All Our Courses You Gain Access To
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
 
-- 📝 **Notes:** Detailed and downloadable notes to accompany each lesson.
-- 💻 **Source Code:** Full access to the source code used in the tutorials.
-- 🤔 **Doubt Solving:** Responsive instructor and community support.
-- 🎥 **High-Quality HD Videos:** Easy to understand, high-definition video tutorials.
-- 🔄 **Free Lifetime Updates:** Continuous updates to course content at no extra cost.
+### Backend
+- Java
+- Spring Boot
+- Spring Cloud Gateway
+- Spring Cloud Eureka
+- REST APIs
 
-## 📚 Why Choose This Mastery Series?
+### Database
+- MySQL
 
-With this series, you're not just learning; you're preparing to dominate the field of Java and Spring Boot development. Our structured learning path ensures that you build your skills progressively, with each course designed to build on the knowledge gained from the previous one.
+### Tools
+- Git
+- GitHub
+- Maven
+- IntelliJ IDEA
 
-### Join Us Now!
+---
 
-Start your journey today to become a master at Java and Spring Boot. Our community and expert instructors are here to support your learning every step of the way. **Enroll and start building your future, today!**
+## Architecture
 
+The project follows a microservices architecture where each service performs a specific responsibility.
 
+Main Components:
 
+- API Gateway
+- Eureka Service Registry
+- Authentication Service
+- Fitness Service
+- User Service
+- Database
 
+---
 
-# Usage Policy for Course Materials
+## Project Structure
 
-## Instructor Information
+```
+fitness-application/
+│
+├── api-gateway
+├── eureka-server
+├── authentication-service
+├── fitness-service
+├── user-service
+├── frontend
+└── README.md
+```
 
-**Instructor:** Faisal Memon  
-**Company:** [EmbarkX.com](http://www.embarkx.com)
+---
 
-## Policy Overview
+## Getting Started
 
-This document outlines the guidelines and restrictions concerning the use of course materials provided by EmbarkX, including but not limited to PDF presentations, code samples, and video tutorials.
+### Clone the Repository
 
-### 1. Personal Use Only
+```bash
+git clone https://github.com/yourusername/fitness-application.git
+```
 
-The materials provided in this course are intended for **your personal use only**. They are to be used solely for the purpose of learning and completing this course.
+### Navigate to the Project
 
-### 2. No Unauthorized Sharing or Distribution
+```bash
+cd fitness-application
+```
 
-You are **not permitted** to share, distribute, or publicly post any course materials on any websites, social media platforms, or other public forums without prior written consent from the instructor.
+### Start Eureka Server
 
-### 3. Intellectual Property
+```bash
+mvn spring-boot:run
+```
 
-All course materials are protected by copyright laws and are the intellectual property of Faisal Memon and EmbarkX. Unauthorized use, reproduction, or distribution of these materials is **strictly prohibited**.
+### Start API Gateway
 
-### 4. Reporting Violations
+```bash
+mvn spring-boot:run
+```
 
-If you become aware of any unauthorized sharing or distribution of course materials, please report it immediately to [embarkxofficial@gmail.com](mailto:embarkxofficial@gmail.com).
+### Start All Microservices
 
-### 5. Legal Action
+Run each Spring Boot service individually.
 
-We reserve the right to take legal action against individuals or entities found to be violating this usage policy.
+### Launch Frontend
 
-## Thank You
+Open the frontend in your browser or serve it using any local web server.
 
-Thank you for respecting these guidelines and helping us maintain the integrity of our course materials.
+---
 
-## Contact Information
+## Future Improvements
 
-- **Email:** [embarkxofficial@gmail.com](mailto:embarkxofficial@gmail.com)
-- **Website:** [www.embarkx.com](http://www.embarkx.com)
+- AI chatbot for fitness guidance
+- Diet recommendation system
+- BMI and calorie calculator
+- Workout history tracking
+- Email notifications
+- Mobile application support
+- Docker and Kubernetes deployment
 
+---
+
+## Learning Outcomes
+
+This project helped in understanding:
+
+- Spring Boot development
+- Microservices architecture
+- REST API development
+- API Gateway
+- Eureka Service Discovery
+- MySQL integration
+- Frontend and backend communication
+- Git and GitHub workflow
+
+---
+
+## Screenshots
+
+Add screenshots of the application here.
+
+---
+
+## Author
+
+**Akshat Raj**
+
+GitHub: https://github.com/akshatrajshanu1809-create
+
+---
+
+## License
+
+This project is created for learning and educational purposes.
