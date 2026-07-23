@@ -6,40 +6,6 @@ A microservices-based fitness tracking platform where users log workout activiti
 
 Users authenticate through Keycloak and log activities (running, cycling, yoga, etc.) from the React frontend. Each activity is persisted and published to a message queue; a dedicated AI service consumes those events, sends the activity data to Gemini, and stores back a personalized recommendation (analysis, suggestions, safety tips, and target metrics) that the user can view alongside their activity history.
 
-## Architecture
-
-The system is composed of six Spring Boot services plus a React frontend, coordinated through Eureka service discovery and a centralized Config Server:
-
-```mermaid
-flowchart LR
-    FE["React Frontend<br/>(Vite, MUI, Redux Toolkit)"] -->|JWT| GW["API Gateway<br/>:8080"]
-    KC["Keycloak<br/>:8181"] -.->|OAuth2 / OIDC PKCE| FE
-    GW -->|validates JWT, syncs user, injects X-User-ID| US["User Service<br/>:8081"]
-    GW --> AS["Activity Service<br/>:8082"]
-    GW --> AIS["AI Service<br/>:8083"]
-
-    US <-->|PostgreSQL| PG[(fitness_user_db)]
-    AS <-->|MongoDB| M1[(fitnessactivity)]
-    AIS <-->|MongoDB| M2[(fitnessrecommendation)]
-
-    AS -->|validates user| US
-    AS -->|publishes activity.tracking event| RMQ[["RabbitMQ<br/>fitness.exchange"]]
-    RMQ -->|activity.queue| AIS
-    AIS -->|prompt| GEM["Google Gemini API"]
-
-    CFG["Config Server<br/>:8888"] -. serves config .-> GW
-    CFG -. serves config .-> US
-    CFG -. serves config .-> AS
-    CFG -. serves config .-> AIS
-
-    EUR["Eureka<br/>:8761"] -. service discovery .-> GW
-    EUR -. service discovery .-> US
-    EUR -. service discovery .-> AS
-    EUR -. service discovery .-> AIS
-```
-
-**Flow:** a user signs in via Keycloak (Authorization Code + PKCE) → the gateway validates the resulting JWT on every request, transparently registers first-time users in the User Service, and forwards requests with an `X-User-ID` header → the Activity Service validates the user, stores the activity in MongoDB, and publishes an event to RabbitMQ → the AI Service consumes the event, builds a prompt from the activity data, calls Gemini, and stores the generated recommendation → the frontend fetches recommendations per activity or per user.
-
 ## Services
 
 | Service | Port | Responsibility | Datastore |
@@ -122,40 +88,6 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`, and all API calls should go through the gateway at `http://localhost:8080`.
 
-## Configuration
-
-Service configuration is centralized in `configserver/src/main/resources/config/*.yml`. Key values to set for your environment:
-
-**`aiservice` — Gemini API** (environment variables, not committed):
-```bash
-export GEMINI_API_URL="https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="
-export GEMINI_API_KEY="your-gemini-api-key"
-```
-
-**`userservice` — PostgreSQL** (`configserver/.../config/user-service.yml`):
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/fitness_user_db
-    username: postgres
-    password: your-postgres-password
-```
-
-**`activityservice` / `aiservice` — MongoDB and RabbitMQ:** default to `mongodb://localhost:27017` and `localhost:5672` (guest/guest) — update as needed.
-
-**`gateway` — Keycloak:**
-```yaml
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8181/realms/fitness-oauth2/protocol/openid-connect/certs
-```
-
-**`fitness-app-frontend` — Keycloak client** (`src/authConfig.js`): client ID `oauth2-pkce-client`, realm `fitness-oauth2`, redirect URI `http://localhost:5173`.
-
-> Note: credentials in the sample config files are for local development only — replace them and avoid committing real secrets before deploying.
 
 ## API Reference
 
